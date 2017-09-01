@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import time
+
+
 class Outputer(object):
     def __init__(self):
         self._collected_data = []
@@ -10,10 +13,12 @@ class Outputer(object):
         self._collected_data.append(new_data)
 
     def output(self):
+        _cur_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         fout = open('resoult.html', 'w')
         fout.write('<html>\n')
         fout.write('    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />\n ')
         fout.write('    <body>\n')
+        fout.write('    <p>Time:%s, Count:%d</p>\n' % (_cur_time, len(self._collected_data)))
         fout.write('        <table border="8">\n')
         self._collected_data.sort(key=lambda x: x['community'], reverse=True)
         fout.write('            <tr>\n')
